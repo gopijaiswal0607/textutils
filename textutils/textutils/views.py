@@ -7,16 +7,38 @@ from django.shortcuts import render
 #    return HttpResponse("About Gopi Jaiswal")
 
 def index(request): # if request is not given it will through an error 
-    params={'name':'Gopi','place':'Mars'}
-    return render(request,'index.html',params)
+    return render(request,'index.html')
   #  return HttpResponse("<h1>Home</h1>")
-def removepunc(request):
-    return HttpResponse("remove puncuation")
-def capfirst(request):
+
+
+def analyze(request):
+    #get the text
+    djtext=request.GET.get('text','default')
+    removepuch=request.GET.get('removepunc','off') # make default = off
+    print(removepuch)
+    print(djtext)
+    # analyze the text
+    analyzed= ""
+    punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+    if removepuch == "on":
+
+        for char in djtext:
+            if char not in punctuations:
+                analyzed = analyzed+char
+        params={'purpose':'Removed Punctuations','analyzed_text':analyzed}
+        return render(request,'analyze.html',params)
+    #return HttpResponse("remove puncuation")
+    else:
+        return HttpResponse("Error")
+'''def capfirst(request):
     return HttpResponse("Capitalize first")
+
 def newlineremove(request):
     return HttpResponse("New line remove")
+
 def spaceremove(request):
     return HttpResponse("space remover " "<a href='/'>back</a>")
+
 def charcounter(request):
     return HttpResponse("character counter")
+'''
