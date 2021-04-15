@@ -71,7 +71,8 @@ def analyze(request):
         params={'purpose':message,'analyzed_text':atext}
         return render(request,'analyze.html',params)
     else:
-        return HttpResponse('<h1>Error!!! You have not checked any options </h1>')
+        return render(request,'error.html')
+        #return HttpResponse('<h1>Error!!! You have not checked any options </h1>')
 '''def capfirst(request):
     return HttpResponse("Capitalize first")
 
